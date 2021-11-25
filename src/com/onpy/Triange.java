@@ -15,7 +15,6 @@ class Triangle implements Serializable {
     double gamma;
     double square;
     long isosceles = 0;
-    String y;
 
     public Triangle(double x1, double x2, double x3) {
         this.setX1(x1);
@@ -66,18 +65,6 @@ class Triangle implements Serializable {
     public double getX3() {
         return x3;
     }
-
-  /*  public double getNumTriangle() {
-        return numberTriangle;
-    }
-
-    public void setY(String y) {
-        this.y = y;
-    }
-
-    public String getY() {
-        return y;
-    }*/
 
     @Override
     public String toString() {

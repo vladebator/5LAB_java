@@ -7,7 +7,7 @@ public class Main {
     public static Triangles triangles = new Triangles();
 
     public static int CheckCorrectFunction(String value) {
-        int func = -1;
+        int func = 0;
         try {
             func = Integer.parseInt(value);
         } catch (NumberFormatException e) {

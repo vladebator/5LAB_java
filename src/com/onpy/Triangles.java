@@ -41,32 +41,27 @@ public class Triangles implements Serializable {
                 '}';
     }
 
-    void serializeFile(String fileName) throws IOException {
-        //FileWork saveToFile = new FileWork();
+    void serializeFile(String fileName) {
         FileWork.serialize(this, fileName);
     }
 
-    void deserializeFile(String fileName) throws IOException {
-        //FileWork loadToBase = new FileWork();
+    void deserializeFile(String fileName) {
         Triangles er = new Triangles(FileWork.deserialize(fileName));
         this.triangles = er.triangles;
         this.description = er.description;
     }
 
     void JacksonSerializeFile(String fileName) throws IOException {
-        //FileWork saveToFile = new FileWork();
         FileWork.jacksonSerialize(this, fileName);
         triangles.clear();
     }
 
     void jacksonDeserializeFile(String fileName) throws IOException {
-        //FileWork loadToBase = new FileWork();
-        this.triangles = FileWork.jacksonDeSerialize(triangles, fileName);
+        this.triangles = FileWork.jacksonDeSerialize(fileName);
     }
 
     void saveFile(String fileName) throws IOException {
-        FileWork saveToFile = new FileWork();
-        saveToFile.save(triangles, fileName);
+        FileWork.save(triangles, fileName);
     }
 
     public void dataInput() throws IOException {
@@ -77,11 +72,11 @@ public class Triangles implements Serializable {
         for (int i = 0; i < triangles.length; i++) {
             triangles[i] = new Triangle();
 
-            System.out.print("Введите cторону Х1 для треугольника №" + (i + 1) + ": ");
+            System.out.print("Введите сторону Х1 для треугольника №" + (i + 1) + ": ");
             triangles[i].x1 = scan.nextInt();
-            System.out.print("Введите cторону Х2 для треугольника №" + (i + 1) + ": ");
+            System.out.print("Введите сторону Х2 для треугольника №" + (i + 1) + ": ");
             triangles[i].x2 = scan.nextInt();
-            System.out.print("Введите cторону Х3 для треугольника №" + (i + 1) + ": ");
+            System.out.print("Введите сторону Х3 для треугольника №" + (i + 1) + ": ");
             triangles[i].x3 = scan.nextInt();
             triangles[i].numberTriangle = ++numberTriangle;
 

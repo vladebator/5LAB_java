@@ -10,18 +10,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- *
- */
 public class FileWork {
 
-    /**
-     * Нативная сериализация java
-     * @param triangles Объект класса Triangles
-     * @param fileName Путь к файлу для сохранения
-     * @throws IOException Обработка ошибок ввода/вывода
-     */
-    public static void serialize(Triangles triangles, String fileName) throws IOException {
+    public static void serialize(Triangles triangles, String fileName) {
         try {
             FileOutputStream fileOut = new FileOutputStream(fileName);
             ObjectOutputStream outOOS = new ObjectOutputStream(fileOut);
@@ -31,10 +22,9 @@ public class FileWork {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // examResults.examResults.clear();
     }
 
-    public static Triangles deserialize(String fileName) throws IOException {
+    public static Triangles deserialize(String fileName) {
         Triangles triangles = null;
         try {
             FileInputStream fileIn = new FileInputStream(fileName);
@@ -44,9 +34,9 @@ public class FileWork {
             fileIn.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException с) {
+        } catch (ClassNotFoundException c) {
             System.out.println("Not found!");
-            с.printStackTrace();
+            c.printStackTrace();
         }
         return triangles;
     }
@@ -57,27 +47,23 @@ public class FileWork {
         objectMapper.writeValue(new File(fileName), triangles);
     }
 
-    public static ArrayList jacksonDeSerialize(ArrayList<Triangle> triangles, String fileName) throws IOException {
+    public static ArrayList jacksonDeSerialize(String fileName) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Triangles newTriangles = objectMapper.readValue(new File(fileName), Triangles.class);
-        return triangles = newTriangles.triangles;
+        return newTriangles.triangles;
     }
 
     public static void save(ArrayList<Triangle> triangles, String fileWay) throws IOException {
 
         byte[] bytesToWrite;
-        byte[] numberTriangle, x1, x2, x3, razd;
-        String razdel = "∎";
+        byte[] x1, x2, x3, delimiter;
+        String delimiters = "∎";
 
         for (Triangle object : triangles) {
 
-           /* // номер треугольника
-            String s1 = Double.toHexString(object.getNumTriangle());
-            numberTriangle = s1.getBytes(StandardCharsets.UTF_8);*/
-
             // Сторона  №1 треугольника
-            String s2 = Double.toHexString(object.getX1()); // todo get hex value from int (by Speranskyy) =)
+            String s2 = Double.toHexString(object.getX1());
             x1 = s2.getBytes(StandardCharsets.UTF_8);
 
             // Сторона №2 треугольника
@@ -89,21 +75,16 @@ public class FileWork {
             x3 = s4.getBytes(StandardCharsets.UTF_8);
 
             // разделитель
-            razd = razdel.getBytes(StandardCharsets.UTF_8);
+            delimiter = delimiters.getBytes(StandardCharsets.UTF_8);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-            /*outputStream.write(numberTriangle);
-            outputStream.write(razd);*/
             outputStream.write(x1);
-            outputStream.write(razd);
+            outputStream.write(delimiter);
             outputStream.write(x2);
-            outputStream.write(razd);
+            outputStream.write(delimiter);
             outputStream.write(x3);
 
             bytesToWrite = outputStream.toByteArray();
-            /**
-             *
-             */
             FileOutputStream outFile = null;
             boolean isOpened = false;
             try {
@@ -121,15 +102,11 @@ public class FileWork {
         }
     }
 
-    public static void load(ArrayList<Triangle> triangles, String fileWay) throws IOException {
+    public static void load(ArrayList<Triangle> triangles, String fileWay) {
         triangles.clear();
         byte[] wert = new byte[0];
         int amount = 0;
         try {
-
-            /**
-             *
-             */
             FileInputStream inFile = new FileInputStream(fileWay);
             int bytesAvailable = inFile.available(); //сколько можно считать
             System.out.println("Available: " + bytesAvailable);
@@ -139,8 +116,7 @@ public class FileWork {
 
             System.out.println("Было считано байт: " + count);
             System.out.println(Arrays.toString(bytesReaded));
-            byte[] trap = bytesReaded;
-            wert = trap;
+            wert = bytesReaded;
             amount = count;
             inFile.close();
 
@@ -150,7 +126,6 @@ public class FileWork {
             System.out.println("Ошибка ввода/вывода:" + e);
         }
         byte[] dannie = wert;
-        int numberTriange = 0;
         int x1 = 0;
         int x2 = 0;
         int x3 = 0;
@@ -168,7 +143,6 @@ public class FileWork {
                 ab[0] = dannie[i];
                 String str = new String(ab, StandardCharsets.UTF_8);
                 num = num + str;
-                numberTriange = Integer.parseInt(num, 2);
             }
 
             for (i = q; i < amount; i++) {
@@ -178,8 +152,6 @@ public class FileWork {
                 }
                 byte[] ab = new byte[1];
                 ab[0] = dannie[i];
-                String str = new String(ab, StandardCharsets.UTF_8);
-                //x1 = x1 + str;
                 x1 = Integer.parseInt(String.valueOf(x1), 2);
             }
             for (i = q; i < amount; i++) {
@@ -189,8 +161,6 @@ public class FileWork {
                 }
                 byte[] ab = new byte[1];
                 ab[0] = dannie[i];
-                String str = new String(ab, StandardCharsets.UTF_8);
-                //m1 = m1 + str;
                 x2 = Integer.parseInt(String.valueOf(x2), 2);
             }
             for (i = q; i < amount; i++) {
@@ -200,18 +170,11 @@ public class FileWork {
                 }
                 byte[] ab = new byte[1];
                 ab[0] = dannie[i];
-                String str = new String(ab, StandardCharsets.UTF_8);
-                //d1 = d1 + str;
                 x3 = Integer.parseInt(String.valueOf(x3), 2);
             }
             if (i == amount - 1) {
                 break;
             }
-            //triangles.add(new triangle(x1, x2, x3, numberTriange));
-            numberTriange = 0;
-            x1 = 0;
-            x2 = 0;
-            x3 = 0;
         }
     }
 }
