@@ -47,7 +47,7 @@ public class FileWork {
         objectMapper.writeValue(new File(fileName), triangles);
     }
 
-    public static ArrayList jacksonDeSerialize(String fileName) throws IOException {
+    public static ArrayList<Triangle> jacksonDeSerialize(String fileName) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Triangles newTriangles = objectMapper.readValue(new File(fileName), Triangles.class);
@@ -104,19 +104,19 @@ public class FileWork {
 
     public static void load(ArrayList<Triangle> triangles, String fileWay) {
         triangles.clear();
-        byte[] wert = new byte[0];
+        byte[] readData = new byte[0];
         int amount = 0;
         try {
             FileInputStream inFile = new FileInputStream(fileWay);
             int bytesAvailable = inFile.available(); //сколько можно считать
             System.out.println("Available: " + bytesAvailable);
 
-            byte[] bytesReaded = new byte[bytesAvailable]; //куда считываем
-            int count = inFile.read(bytesReaded, 0, bytesAvailable);
+            byte[] bytesRead = new byte[bytesAvailable]; //куда считываем
+            int count = inFile.read(bytesRead, 0, bytesAvailable);
 
             System.out.println("Было считано байт: " + count);
-            System.out.println(Arrays.toString(bytesReaded));
-            wert = bytesReaded;
+            System.out.println(Arrays.toString(bytesRead));
+            readData = bytesRead;
             amount = count;
             inFile.close();
 
@@ -125,12 +125,11 @@ public class FileWork {
         } catch (IOException e) {
             System.out.println("Ошибка ввода/вывода:" + e);
         }
-        byte[] dannie = wert;
+        byte[] dannie = readData;
         int x1 = 0;
         int x2 = 0;
         int x3 = 0;
         int q = 0;
-        String num = "";
 
         for (int i = 0; i < amount; i++) {
 
@@ -139,10 +138,6 @@ public class FileWork {
                     q = i + 1;
                     break;
                 }
-                byte[] ab = new byte[1];
-                ab[0] = dannie[i];
-                String str = new String(ab, StandardCharsets.UTF_8);
-                num = num + str;
             }
 
             for (i = q; i < amount; i++) {
@@ -150,8 +145,6 @@ public class FileWork {
                     q = i + 1;
                     break;
                 }
-                byte[] ab = new byte[1];
-                ab[0] = dannie[i];
                 x1 = Integer.parseInt(String.valueOf(x1), 2);
             }
             for (i = q; i < amount; i++) {
@@ -159,8 +152,6 @@ public class FileWork {
                     q = i + 1;
                     break;
                 }
-                byte[] ab = new byte[1];
-                ab[0] = dannie[i];
                 x2 = Integer.parseInt(String.valueOf(x2), 2);
             }
             for (i = q; i < amount; i++) {
@@ -168,8 +159,6 @@ public class FileWork {
                     q = i + 1;
                     break;
                 }
-                byte[] ab = new byte[1];
-                ab[0] = dannie[i];
                 x3 = Integer.parseInt(String.valueOf(x3), 2);
             }
             if (i == amount - 1) {

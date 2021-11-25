@@ -29,6 +29,7 @@ class Triangle implements Serializable {
         if (trueSide <= 0) {
             System.out.print("Ошибка ввода. Сторона треугольника не может быть отрицательной! ");
             Scanner scan = null;
+            assert false;
             trueSide = scan.nextDouble();
         }
         this.x1 = (int) trueSide;
@@ -43,6 +44,7 @@ class Triangle implements Serializable {
         if (trueSide <= 0) {
             System.out.print("Ошибка ввода. Сторона треугольника не может быть отрицательной! ");
             Scanner scan = null;
+            assert false;
             trueSide = scan.nextDouble();
         }
         this.x2 = trueSide;
@@ -57,6 +59,7 @@ class Triangle implements Serializable {
         if (trueSide <= 0) {
             System.out.print("Ошибка ввода. Сторона треугольника не может быть отрицательной! ");
             Scanner scan = null;
+            assert false;
             trueSide = scan.nextDouble();
         }
         this.x3 = trueSide;

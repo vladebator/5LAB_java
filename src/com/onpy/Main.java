@@ -4,10 +4,10 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Main {
-    public static Triangles triangles = new Triangles();
+    public static final Triangles triangles = new Triangles();
 
     public static int CheckCorrectFunction(String value) {
-        int func = 0;
+        int func;
         try {
             func = Integer.parseInt(value);
         } catch (NumberFormatException e) {
@@ -17,7 +17,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        int function = 0;
+        int function;
         Scanner scan = new Scanner(System.in);
 
         triangles.add(new Triangle(1, 2, 3));
@@ -58,6 +58,10 @@ public class Main {
                     System.out.print("\nВведите путь к базе данных:");
                     String deserializeFileName = scan.nextLine();
                     triangles.deserializeFile(deserializeFileName);
+                    if(triangles == null)
+                    {
+                        System.out.print("\nДанные не были загружены!");
+                    }
                     break;
                 case 5:
                     System.out.print("\nВведите путь для сохранения файла:");
@@ -68,6 +72,10 @@ public class Main {
                     System.out.print("\nВведите путь к базе данных:");
                     String jacksonDeserializeFileName = scan.nextLine();
                     triangles.jacksonDeserializeFile(jacksonDeserializeFileName);
+                    if(triangles == null)
+                    {
+                        System.out.print("\nДанные не были загружены!");
+                    }
                     break;
                 case 7:
                     triangles.triangles.clear();

@@ -11,7 +11,7 @@ import java.util.Scanner;
 import static java.lang.Math.pow;
 
 public class Triangles implements Serializable {
-    int inCountTriangle = 2;
+    final int inCountTriangle = 2;
     int numberTriangle = 0;
 
     @JsonProperty("triangles")
@@ -106,23 +106,23 @@ public class Triangles implements Serializable {
         int countIsoscelesTriangle = 0;
 
         // В этом цикле я вычисляю среднюю площадь для обычных треугольников
-        for (int i = 0; i < triangles.length; i++) {
-            if (triangles[i].isosceles == 0) {
+        for (Triangle triangle : triangles) {
+            if (triangle.isosceles == 0) {
                 countNormalTriangle = countNormalTriangle + 1;
-                averageSquare = +triangles[i].square;
+                averageSquare = +triangle.square;
             }
         }
 
         // В этом цикле находим минимальную площадь равнобедренных треугольников
-        for (int i = 0; i < triangles.length; i++) {
-            if (triangles[i].isosceles == 1) {
+        for (Triangle triangle : triangles) {
+            if (triangle.isosceles == 1) {
                 countIsoscelesTriangle = countIsoscelesTriangle + 1;
                 for (int j = 0; j != triangles.length; j++) {
-                    if (!(triangles[i].square < max)) {
-                        max = triangles[i].square;
+                    if (!(triangle.square < max)) {
+                        max = triangle.square;
                     }
-                    if (triangles[i].square < min) {
-                        min = triangles[i].square;
+                    if (triangle.square < min) {
+                        min = triangle.square;
                     }
                 }
             }
@@ -136,8 +136,7 @@ public class Triangles implements Serializable {
         int saveData = scan.nextInt();
         if(saveData == 1) {
             //System.out.println("Введите путь к файлу:");
-            ArrayList<Triangle> triangleArrayList = new ArrayList<>();
-            triangleArrayList.addAll(Arrays.asList(triangles));
+            ArrayList<Triangle> triangleArrayList = new ArrayList<>(Arrays.asList(triangles));
             FileWork.save(triangleArrayList, "d:\\1.txt");
             //BinaryDataSaver.save(triangleArrayList, wayToFile);
             System.out.println("Файл успешно сохранён!");
